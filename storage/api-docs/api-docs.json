@@ -1,0 +1,392 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "api/v1/admin/login": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Admin Login",
+                "description": "Get access to application",
+                "operationId": "loginAdmin",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "00",
+                                    "data": {
+                                        "user": {
+                                            "id": 1,
+                                            "name": "hafizi",
+                                            "email": "hafizihamid92@gmail.com",
+                                            "email_verified_at": null,
+                                            "created_at": "2022-07-07T07:55:04.000000Z",
+                                            "updated_at": "2022-07-18T08:01:54.000000Z",
+                                            "is_disabled": 0,
+                                            "blocked_until": null,
+                                            "tries": 0,
+                                            "roles": [
+                                                "Super Admin"
+                                            ],
+                                            "permissions": [
+                                                "view-users",
+                                                "add-users",
+                                                "disable-users",
+                                                "view-users-details",
+                                                "update-users",
+                                                "list-roles",
+                                                "add-roles",
+                                                "update-roles",
+                                                "delete-roles",
+                                                "view-role-details",
+                                                "list-permissions"
+                                            ]
+                                        },
+                                        "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNmNmMmY2MzBmMDUyMzllODk5ZjhmYjExNjk1Y2I2ZTZmM2UyYmRiMzUyZDJmNWUwOTMyMzc3MWMwZDlkNTk1YTIxYzFjYTk2OGFjOWE1MDgiLCJpYXQiOjE2NTgxOTQ2NTQuNDQxMDU5LCJuYmYiOjE2NTgxOTQ2NTQuNDQxMDYsImV4cCI6MTY4OTczMDY1NC40MzM1OCwic3ViIjoiMSIsInNjb3BlcyI6WyJhZG1pbiJdfQ.gKInINcAXGoABlvR2q4cRHRUSXrKscHImTPzcveEOxhX_zlHM7ALM28m8D9s1NJOwiPKZKA1PteVrM6W3R_4OAxNbVUyU1oMvnrWgmF_lZGdGgnE_nVAEeic_3AZZ3RIE5SfDWhU35cktNowd08HdhmBo_QepMLbGT_U-WY9TAgghiE7GmegV92d3_whLbeLjj1lbjcf5dgtKivb7eEmdXM4uIRQwWJfuY1RHhAZON9eWmjve46pN049U9KIhAmPEfdWo5tBxRBY89AHf5M1TzDT2J1PBCvvl0bDLP0rcRpX5XIhciVtXne-1N0TI4VYzi4Lj8_3MUkPUKg1CmJwJObRxz3tTiRqAp0nelLcCbF3pVkjDyBTT6JJl8Q_nYTnE-Zkd0A87Guyd8DgOTI9YC6pl_r1samT3eA0wucAIcCCJoYqz9gbckSjoq-uAOmwCigTe_cJoEj02e1aSFpDieY3F-kwqCkGuJfgktWvq3XUWYtZFGCTV8Z0M9C64RgWuyiIHVRq44uKGupgvPUtC00O_-EuB3irwdotKk8RlLdeZ90RC05N2JRQxOH6mssNsApmNTp_reC2d6vfVQeg_WFn-wBTvMUsvWabDauplXW9_NYU7nmkj-81Hw5lGoRHdJwIXD0ruVUIaE6CimYayAMswanudgs6ujy-BUhPZ9A"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "23",
+                                    "errors": [
+                                        "Invalid login credentials! Please try again"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "21",
+                                    "detail": "Validation Failed!",
+                                    "field": {
+                                        "email": "The email field is required.",
+                                        "password": "The password field is required."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/v1/admin/password/forgot": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Admin Forgot Password",
+                "description": "To unlock and retrieve account",
+                "operationId": "forgotPasswordAdmin",
+                "requestBody": {
+                    "description": "To unlock and retrieve account",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "00",
+                                    "message": "Password reset email sent successfully."
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "26",
+                                    "errors": [
+                                        "User not found."
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "21",
+                                    "detail": "Validation Failed!",
+                                    "field": {
+                                        "email": "The email must be a valid email address."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/v1/admin/password/reset": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Admin Reset Password",
+                "description": "To unlock and retrieve account",
+                "operationId": "resetPasswordAdmin",
+                "requestBody": {
+                    "description": "To unlock and retrieve account",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password",
+                                    "token",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "format": "token",
+                                        "example": "token123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "00",
+                                    "message": "Password reset successful."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "23",
+                                    "errors": [
+                                        "Invalid reset token."
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "21",
+                                    "detail": "Validation Failed!",
+                                    "field": {
+                                        "password": "The password field is required.",
+                                        "email": "The email field is required.",
+                                        "token": "The token field is required."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/v1/admin/password/validate-reset-token": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Admin Validate Reset Token",
+                "description": "To validate reset password token",
+                "operationId": "validateResetTokenAdmin",
+                "requestBody": {
+                    "description": "To validate reset password token",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "token"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "format": "token",
+                                        "example": "token123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "00",
+                                    "message": "Valid reset token."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "23",
+                                    "errors": [
+                                        "Invalid reset token."
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "status_code": "21",
+                                    "detail": "Validation Failed!",
+                                    "field": {
+                                        "email": "The email field is required.",
+                                        "token": "The token field is required."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
